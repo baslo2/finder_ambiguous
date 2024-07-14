@@ -7,7 +7,7 @@ import java.util.Objects;
 public class Rule {
     private String name;
     private String body;
-    private List<Rule> parents = new ArrayList;
+    private List<Rule> parents = new ArrayList<>();
     private List<Rule> children = new ArrayList<>();
 
     public Rule(String name) {

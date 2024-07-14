@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.util.stream.Stream;
 
 import model.Rule;
 import reader.G4Reader;
@@ -15,16 +14,11 @@ public class Main {
     private static final Pattern RULE_NAME = Pattern.compile("[_|a-z]*\n\s\s\s\s:");
     private static final String PATH = "D:\\Work\\IT\\java\\eclipse_rcp\\pgcodekeeper"
             + "\\ru.taximaxim.codekeeper.core\\antlr-src\\SQLParser.g4";
+    private static List<Rule> rules = new ArrayList<>();
 
     public static void main(String[] args) throws IOException {
-        Stream<String> lines = G4Reader.readFile(PATH);
-        List<String> tempLines = new ArrayList<>();
-        lines.forEach(tempLines::add);
-        var sb = new StringBuilder();
-        List<Rule> rules = new ArrayList<>();
-
-        tempLines.forEach(e -> sb.append(e).append("\n"));
-        Matcher m = RULE_NAME.matcher(sb);
+        var parserRules = G4Reader.readParser(PATH);
+        Matcher m = RULE_NAME.matcher(parserRules);
         String start = null;
         String end = null;
         while (m.find()) {
@@ -32,16 +26,16 @@ public class Main {
                 start = m.group();
             } else if (end == null) {
                 end = m.group();
-                rules.add(getRule(start, end, sb));
+                rules.add(getRule(start, end, parserRules));
             } else {
                 start = end;
                 end = m.group();
-                rules.add(getRule(start, end, sb));
+                rules.add(getRule(start, end, parserRules));
             }
         }
         if (end != null) {
             // collect the last rule
-            rules.add(getRule(end, end, sb));
+            rules.add(getRule(end, end, parserRules));
         }
 
 //        for (var r : rules) {
@@ -53,10 +47,9 @@ public class Main {
             System.out.println("-------------------------------------------------");
             System.out.println(r);
         }
-        G4Reader.clouseReader();
     }
 
-    private static Rule getRule(String start, String end, StringBuilder sb) {
+    private static Rule getRule(String start, String end, String sb) {
         var name = start.substring(0, start.indexOf('\n'));
         var rule = new Rule(name);
         String body;
