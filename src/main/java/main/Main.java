@@ -13,7 +13,7 @@ import reader.G4Reader;
 
 public class Main {
 
-    private static final Pattern RULE_NAME = Pattern.compile("\n\s?[_|a-z]*\n\s\s\s\s:");
+    private static final Pattern RULE_NAME = Pattern.compile("\n\s?[a-z][_a-z]*\n\s*:");
     private static final Pattern CHILD_PATTERN = Pattern.compile("[a-z][_a-z]*");
 
     private static final String PATH = "D:\\Work\\IT\\java\\eclipse_rcp\\pgcodekeeper"
@@ -47,6 +47,7 @@ public class Main {
 //        }
 //        System.out.println(rules.get(0));
         System.out.println(rules.size());
+        System.out.println(rules.get("vex"));
 
 //        for (var r : rules.values()) {
 //            System.out.println("-------------------------------------------------");
@@ -79,7 +80,8 @@ public class Main {
     }
 
     private static void getRule(String start, String end, String sb) {
-        var name = start.substring(start.indexOf('\n'), start.length() - 1);
+        var name = start;
+        name = name.replace("\n", "").replace(" ", "").replace(":", "");
         var rule = new Rule(name);
         String body;
         int startIndex = sb.indexOf(start) + start.length();
