@@ -1,9 +1,7 @@
 package main;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,14 +11,14 @@ import reader.G4Reader;
 
 public class Main {
 
-    private static final Pattern RULE_NAME = Pattern.compile("\n\s?[a-z][_a-z]*\n\s*:");
+    private static final Pattern RULE_NAME = Pattern.compile("\n\\u0020?[a-z][_a-z]*\n\\u0020*:");
     private static final Pattern CHILD_PATTERN = Pattern.compile("[a-z][_a-z]*");
 
     private static final String PATH = "D:\\Work\\IT\\java\\eclipse_rcp\\pgcodekeeper"
             + "\\ru.taximaxim.codekeeper.core\\antlr-src\\SQLParser.g4";
-    private static Map<String, Rule> rules = new HashMap<>();
+    private static final Map<String, Rule> rules = new HashMap<>();
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         var parserRules = G4Reader.readParser(PATH);
         Matcher m = RULE_NAME.matcher(parserRules);
         String start = null;
