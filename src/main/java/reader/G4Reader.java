@@ -3,11 +3,10 @@ package reader;
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class G4Reader {
+public final class G4Reader {
 
     private static BufferedReader reader;
 
