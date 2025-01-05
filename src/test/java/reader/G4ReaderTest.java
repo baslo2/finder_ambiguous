@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test;
 
 public class G4ReaderTest {
 
-    private final static String PARSER = "\\SQLParser.g4";
+    private final static String PARSER = "/SQLParser.g4";
     private final static String RESOUCE = new File("src/test/resources").getAbsolutePath();
 
     @Test

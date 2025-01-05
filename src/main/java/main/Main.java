@@ -1,5 +1,6 @@
 package main;
 
+import java.io.File;
 import java.util.Map;
 
 import model.Rule;
@@ -8,7 +9,7 @@ import reader.G4Reader;
 
 public class Main {
 
-    private static final String PATH = "D:\\git\\pgcodekeeper\\ru.taximaxim.codekeeper.core\\antlr-src\\SQLParser.g4";
+    private static final String PATH = new File("src/test/resources/SQLParser.g4").getAbsolutePath();
 
     private static Map<String, Rule> rules;
 
